@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="qZ1-uD-eUW">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="Ps5-hx-GTr">
+            <objects>
+                <viewController id="qZ1-uD-eUW" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9gy-xR-t8A"/>
+                        <viewControllerLayoutGuide type="bottom" id="IIW-lb-aD4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZyU-z7-3i8">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image_launch" translatesAutoresizingMaskIntoConstraints="NO" id="XVI-ye-qcE" userLabel="image_launch">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Copyright © 2016 Titan Studio. All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="gWU-CH-rbq">
+                                <rect key="frame" x="20" y="533" width="280" height="15"/>
+                                <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="13"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="宠物社区" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="zK4-1e-XR0">
+                                <rect key="frame" x="20" y="435" width="280" height="41"/>
+                                <fontDescription key="fontDescription" name="GillSans-Light" family="Gill Sans" pointSize="36"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="IIW-lb-aD4" firstAttribute="top" secondItem="XVI-ye-qcE" secondAttribute="bottom" id="1sM-bb-J1g"/>
+                            <constraint firstItem="zK4-1e-XR0" firstAttribute="centerY" secondItem="ZyU-z7-3i8" secondAttribute="bottom" multiplier="0.8" constant="1" id="73U-HR-1uE"/>
+                            <constraint firstAttribute="centerX" secondItem="gWU-CH-rbq" secondAttribute="centerX" id="EyA-sE-AoU"/>
+                            <constraint firstAttribute="trailing" secondItem="XVI-ye-qcE" secondAttribute="trailing" id="M4l-wp-bFk"/>
+                            <constraint firstAttribute="bottom" secondItem="gWU-CH-rbq" secondAttribute="bottom" constant="20" id="OeS-kc-ggg"/>
+                            <constraint firstItem="XVI-ye-qcE" firstAttribute="leading" secondItem="ZyU-z7-3i8" secondAttribute="leading" id="U0R-9v-9g9"/>
+                            <constraint firstItem="gWU-CH-rbq" firstAttribute="leading" secondItem="ZyU-z7-3i8" secondAttribute="leading" constant="20" symbolic="YES" id="Y9m-9M-Auw"/>
+                            <constraint firstItem="zK4-1e-XR0" firstAttribute="leading" secondItem="ZyU-z7-3i8" secondAttribute="leading" constant="20" symbolic="YES" id="rYU-Z5-QD5"/>
+                            <constraint firstAttribute="centerX" secondItem="zK4-1e-XR0" secondAttribute="centerX" id="tMy-dX-CiT"/>
+                            <constraint firstItem="XVI-ye-qcE" firstAttribute="top" secondItem="ZyU-z7-3i8" secondAttribute="top" id="v5s-ja-5hN"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="umV-h4-3gx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="324" y="360"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="image_launch" width="420" height="700"/>
+    </resources>
+</document>

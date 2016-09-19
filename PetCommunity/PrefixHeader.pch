@@ -1,0 +1,21 @@
+//
+//  PrefixHeader.pch
+//  PetCommunity
+//
+//  Created by Aesir Titan on 2016-09-19.
+//  Copyright © 2016年 Titan Studio. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#import <ATKit/ATKit.h>
+#import <BlocksKit/BlocksKit.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
+#import <ATKit/ATProgressHUD.h>
+
+#import "LoginUser.h"
+#import "PetConst.h"
+
+
+#endif /* PrefixHeader_pch */
