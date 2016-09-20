@@ -14,7 +14,18 @@ PODS:
   - AFNetworking/Serialization (3.0.4)
   - AFNetworking/UIKit (3.0.4):
     - AFNetworking/NSURLSession
-  - ATKit (0.0.2)
+  - ATKit (0.0.3):
+    - ATKit/ATCarousel (= 0.0.3)
+    - ATKit/ATDrawer (= 0.0.3)
+    - ATKit/ATFoundation (= 0.0.3)
+    - ATKit/ATProgressHUD (= 0.0.3)
+    - ATKit/ATTabBar (= 0.0.3)
+  - ATKit/ATCarousel (0.0.3)
+  - ATKit/ATDrawer (0.0.3)
+  - ATKit/ATFoundation (0.0.3)
+  - ATKit/ATProgressHUD (0.0.3):
+    - ATKit/ATFoundation
+  - ATKit/ATTabBar (0.0.3)
   - BlocksKit (2.2.5):
     - BlocksKit/All (= 2.2.5)
   - BlocksKit/All (2.2.5):
@@ -62,7 +73,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
-  ATKit: 1b196d3cbf96c44fd70a1ee638a2882b89cab8b5
+  ATKit: 3c33fe256e19987015a9650dfd5aa50f0e524e6c
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   HYBNetworking: cb4d4bbe247f69dad3cc1a01eb5df69e01976ac6

@@ -107,8 +107,8 @@
     }];
     
     
-    
 }
+
 
 - (void)loadDataFromBundle{
     
@@ -120,6 +120,31 @@
         [self.tableView.mj_footer endRefreshing];
     }
 }
+
+/*
+- (void)loadDataFromJson{
+    ///Users/Aesir/Aesir\ Titan/Titan\ Studio/Project\ PetCommunity/APIs/LocalData/Hot/1.json
+    [self.cachedData removeAllObjects];
+    [self.tableView.mj_header endRefreshing];
+    for (int i=1; i<=6; i++) {
+        NSString *path = [NSString stringWithFormat:@"/Users/Aesir/Aesir Titan/Titan Studio/Project PetCommunity/APIs/LocalData/Hot/%d.json",i];
+        NSDictionary *tag = path.readJson[@"tag"];
+        NSArray *sources = tag[@"source"];
+        
+        self.dataList = [CameraSource mj_objectArrayWithKeyValuesArray:sources];
+        
+        // save cache
+        [self.cachedData addObjectsFromArray:sources];
+        cachePath.savePlist(self.cachedData);
+        // main thread main queue update UI
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+        
+    }
+    
+}
+*/
 
 /*
 - (void)loadData{
@@ -174,6 +199,15 @@
 }
 */
 
+- (NSMutableArray *)cachedData{
+    if (!_cachedData) {
+        // create it
+        _cachedData = [NSMutableArray array];
+        // do something...
+        
+    }
+    return _cachedData;
+}
 
 - (NSMutableArray<CameraSource *> *)dataList{
     if (!_dataList) {

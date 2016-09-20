@@ -10,6 +10,7 @@
 #define PrefixHeader_pch
 
 #import <ATKit/ATKit.h>
+#import <ATKit/ATProgressHUD.h>
 #import <BlocksKit/BlocksKit.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ATKit/ATProgressHUD.h>

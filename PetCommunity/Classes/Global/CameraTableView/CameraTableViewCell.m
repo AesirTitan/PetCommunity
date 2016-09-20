@@ -131,7 +131,13 @@
         // like
         ATSocialButton *like = [ATSocialButton buttonWithImage:@"icon_like" action:^(UIButton *sender) {
             sender.selected = !sender.selected;
-            
+            NSUInteger count = sender.titleLabel.text.integerValue;
+            if (sender.selected) {
+                count++;
+            } else{
+                count--;
+            }
+            [sender setTitle:[NSString stringWithFormat:@"%ld",count] forState:UIControlStateNormal];
         }];
         [self.contentView addSubview:like];
         self.likeButton = like;

@@ -1936,6 +1936,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = PetCommunity/PrefixHeader.pch;
 				INFOPLIST_FILE = PetCommunity/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.titanstudio.PetCommunity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1952,6 +1953,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = PetCommunity/PrefixHeader.pch;
 				INFOPLIST_FILE = PetCommunity/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.titanstudio.PetCommunity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
