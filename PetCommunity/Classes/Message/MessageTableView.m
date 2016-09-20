@@ -63,13 +63,11 @@ static NSString *kMessageTableViewCell = @"MessageTableViewCell";
         // get chat model
         NSUInteger index = (NSUInteger)arc4random_uniform((int)self.messageList.count);
         ChatModel *model = self.messageList[index];
-        // add new message
+        // add new messages
         [model addMessage];
-        // move cell
-        [self.tableView moveRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] toIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-        [self.messageList removeObject:model];
-        [self.messageList insertObject:model atIndex:0];
+        // cache messages
         [self cacheMessages];
+        // reload
         [self at_delay:0.2 performInMainQueue:^(id  _Nonnull obj) {
             [self reload];
         }];
