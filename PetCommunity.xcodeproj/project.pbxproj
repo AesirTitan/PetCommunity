@@ -140,7 +140,7 @@
 		DDBDF9541D8FA8BF00684E82 /* HeaderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBDF8D01D8FA8BF00684E82 /* HeaderModel.m */; };
 		DDBDF9551D8FA8BF00684E82 /* SelectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBDF8D21D8FA8BF00684E82 /* SelectionHeader.m */; };
 		DDBDF9591D8FA8BF00684E82 /* FollowedCamera.plist in Resources */ = {isa = PBXBuildFile; fileRef = DDBDF8D91D8FA8BF00684E82 /* FollowedCamera.plist */; };
-		DDBDF95A1D8FA8BF00684E82 /* HotCamera.plist in Resources */ = {isa = PBXBuildFile; fileRef = DDBDF8DA1D8FA8BF00684E82 /* HotCamera.plist */; };
+		DDBDF95A1D8FA8BF00684E82 /* HotCamera2.plist in Resources */ = {isa = PBXBuildFile; fileRef = DDBDF8DA1D8FA8BF00684E82 /* HotCamera2.plist */; };
 		DDBDF9A61D8FABBE00684E82 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = DDBDF95F1D8FABBE00684E82 /* LICENSE */; };
 		DDBDF9A71D8FABBE00684E82 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBDF9611D8FABBE00684E82 /* MBProgressHUD.m */; };
 		DDBDF9A81D8FABBE00684E82 /* README.mdown in Sources */ = {isa = PBXBuildFile; fileRef = DDBDF9621D8FABBE00684E82 /* README.mdown */; };
@@ -191,6 +191,7 @@
 		DDBDF9D51D8FABBE00684E82 /* DACircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBDF9A01D8FABBE00684E82 /* DACircularProgressView.m */; };
 		DDBDF9D61D8FABBE00684E82 /* DALabeledCircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBDF9A21D8FABBE00684E82 /* DALabeledCircularProgressView.m */; };
 		DDBDF9D71D8FABBE00684E82 /* YYPhotoGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBDF9A51D8FABBE00684E82 /* YYPhotoGroupView.m */; };
+		DDDCED781D91923F00F7673E /* ATRealmManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DDDCED771D91923F00F7673E /* ATRealmManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -459,7 +460,7 @@
 		DDBDF8D11D8FA8BF00684E82 /* SelectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionHeader.h; sourceTree = "<group>"; };
 		DDBDF8D21D8FA8BF00684E82 /* SelectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionHeader.m; sourceTree = "<group>"; };
 		DDBDF8D91D8FA8BF00684E82 /* FollowedCamera.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = FollowedCamera.plist; sourceTree = "<group>"; };
-		DDBDF8DA1D8FA8BF00684E82 /* HotCamera.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HotCamera.plist; sourceTree = "<group>"; };
+		DDBDF8DA1D8FA8BF00684E82 /* HotCamera2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HotCamera2.plist; sourceTree = "<group>"; };
 		DDBDF95C1D8FAB4900684E82 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		DDBDF95F1D8FABBE00684E82 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		DDBDF9601D8FABBE00684E82 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
@@ -527,6 +528,8 @@
 		DDBDF9A21D8FABBE00684E82 /* DALabeledCircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DALabeledCircularProgressView.m; sourceTree = "<group>"; };
 		DDBDF9A41D8FABBE00684E82 /* YYPhotoGroupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYPhotoGroupView.h; sourceTree = "<group>"; };
 		DDBDF9A51D8FABBE00684E82 /* YYPhotoGroupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYPhotoGroupView.m; sourceTree = "<group>"; };
+		DDDCED761D91923F00F7673E /* ATRealmManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATRealmManager.h; sourceTree = "<group>"; };
+		DDDCED771D91923F00F7673E /* ATRealmManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATRealmManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -883,6 +886,7 @@
 		DDBDF81A1D8FA8BF00684E82 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				DDDCED751D91922E00F7673E /* Database */,
 				DDBDF81B1D8FA8BF00684E82 /* Browser */,
 				DDBDF81E1D8FA8BF00684E82 /* CameraTableView */,
 				DDBDF8281D8FA8BF00684E82 /* InputBar */,
@@ -1303,7 +1307,7 @@
 			isa = PBXGroup;
 			children = (
 				DDBDF8D91D8FA8BF00684E82 /* FollowedCamera.plist */,
-				DDBDF8DA1D8FA8BF00684E82 /* HotCamera.plist */,
+				DDBDF8DA1D8FA8BF00684E82 /* HotCamera2.plist */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -1427,6 +1431,15 @@
 				DDBDF9A51D8FABBE00684E82 /* YYPhotoGroupView.m */,
 			);
 			path = YYPhotoGroupView;
+			sourceTree = "<group>";
+		};
+		DDDCED751D91922E00F7673E /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				DDDCED761D91923F00F7673E /* ATRealmManager.h */,
+				DDDCED771D91923F00F7673E /* ATRealmManager.m */,
+			);
+			path = Database;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1596,7 +1609,7 @@
 				DDBDF9B91D8FABBE00684E82 /* PlayButtonOverlayLarge.png in Resources */,
 				DDBDF9161D8FA8BF00684E82 /* UserHeader.xib in Resources */,
 				DDBDF9C21D8FABBE00684E82 /* UIBarButtonItemArrowRight.png in Resources */,
-				DDBDF95A1D8FA8BF00684E82 /* HotCamera.plist in Resources */,
+				DDBDF95A1D8FA8BF00684E82 /* HotCamera2.plist in Resources */,
 				DDBDF9C71D8FABBE00684E82 /* UIBarButtonItemGrid@3x.png in Resources */,
 				DDBDF9A91D8FABBE00684E82 /* .gitkeep in Resources */,
 			);
@@ -1749,6 +1762,7 @@
 				DDBDF93F1D8FA8BF00684E82 /* AboutViewController.m in Sources */,
 				DDBDF9471D8FA8BF00684E82 /* SettingViewController.m in Sources */,
 				DDBDF94D1D8FA8BF00684E82 /* CommentCell.m in Sources */,
+				DDDCED781D91923F00F7673E /* ATRealmManager.m in Sources */,
 				DDBDF8F41D8FA8BF00684E82 /* ATToolBar.m in Sources */,
 				DDBDF8E81D8FA8BF00684E82 /* ATNavigationView.m in Sources */,
 				DDBDF91E1D8FA8BF00684E82 /* ATSocialButton.m in Sources */,
@@ -1934,6 +1948,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PetCommunity/Frameworks",
+				);
 				GCC_PREFIX_HEADER = PetCommunity/PrefixHeader.pch;
 				INFOPLIST_FILE = PetCommunity/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
@@ -1951,6 +1969,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PetCommunity/Frameworks",
+				);
 				GCC_PREFIX_HEADER = PetCommunity/PrefixHeader.pch;
 				INFOPLIST_FILE = PetCommunity/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;

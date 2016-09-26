@@ -30,7 +30,8 @@
     [super awakeFromNib];
     // Initialization code
     
-    self.userImage.layer.at_maskToCircle();
+    self.userImage.clipsToBounds = YES;
+    self.userImage.layer.cornerRadius = 0.5 * fmin(self.userImage.frame.size.width, self.userImage.frame.size.height);
     [self.userImage at_addTapGestureHandler:^(UITapGestureRecognizer * _Nonnull sender) {
         UserProfileViewController *vc = [[UserProfileViewController alloc] initWithUser:self.user];
         [self.controller.navigationController pushViewController:vc animated:YES];

@@ -15,8 +15,6 @@
 
 - (void)reload;
 
-- (void)cacheMessages;
-
 - (void)updateBadge;
 
 @end

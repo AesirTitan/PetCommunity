@@ -8,19 +8,13 @@
 
 #import "CameraTableView.h"
 #import "ATNetworkManager.h"
-
+#import "ATRealmManager.h"
 #import "CamerFrameModel.h"
 #import "SelectionHeader.h"
 #import "CameraTableViewCell.h"
 
-#define cachePath @"getCameraForCameraList.plist".cachePath
 
 @interface CameraTableView ()<UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
-
-// url
-@property (copy, nonatomic) NSString *url;
-// param
-@property (strong, nonatomic) NSMutableDictionary *parameter;
 
 // cached data
 @property (strong, nonatomic) NSMutableArray *cachedData;
@@ -36,33 +30,23 @@
 // list
 @property (strong, nonatomic) NSMutableArray<CamerFrameModel *> *frameDataList;
 
+// followed
+@property (assign, nonatomic) BOOL isFollowed;
+
 @end
 
 @implementation CameraTableView
 
-+ (instancetype)tableViewWithFrame:(CGRect)frame URL:(NSString *)url parameter:(void (^)(NSMutableDictionary *dictWithDefaultUser))parameter {
-    return [[self alloc] initWithFrame:frame URL:url parameter:parameter];
+
+
++ (instancetype)tableViewWithFrame:(CGRect)frame isFollowed:(BOOL)followed {
+    return [[self alloc] initWithFrame:frame isFollowed:followed];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame URL:(NSString *)url parameter:(void (^)(NSMutableDictionary *dictWithDefaultUser))parameter {
+- (instancetype)initWithFrame:(CGRect)frame isFollowed:(BOOL)followed {
     if (self = [super initWithFrame:frame]) {
-        self.url = url;
-        self.parameter = paramWithDefaultUser();
-        parameter(self.parameter);
-        self.page = 1;
-        [self setupTableView];
-    }
-    return self;
-}
-
-+ (instancetype)tableViewWithFrame:(CGRect)frame URL:(NSString *)URL{
-    return [[self alloc] initWithFrame:frame URL:URL];
-}
-
-- (instancetype)initWithFrame:(CGRect)frame URL:(NSString *)URL{
-    if (self = [super initWithFrame:frame]) {
-        self.path = URL;
-        self.page = 1;
+        self.isFollowed = followed;
+        self.page = 0;
         [self setupTableView];
     }
     return self;
@@ -97,7 +81,9 @@
     
     // refresh
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        self.page = 1;
+        self.page = 0;
+        [self.dataList removeAllObjects];
+        [self.cachedData removeAllObjects];
         [self loadDataFromBundle];
     }];
     
@@ -105,20 +91,23 @@
         self.page++;
         [self loadDataFromBundle];
     }];
-    
+    [self loadDataFromBundle];
     
 }
 
 
 - (void)loadDataFromBundle{
     
+    if (self.isFollowed) {
+        [self.dataList addObjectsFromArray:[ATRealmManager hotCamerasWithRange:NSMakeRange(10*self.page, 10)]];
+    } else{
+        [self.dataList addObjectsFromArray:[ATRealmManager hotCamerasWithRange:NSMakeRange(10*self.page, 10)]];
+    }
+    
     [self.tableView reloadData];
     [self.tableView.mj_header endRefreshing];
-    if (10*self.page > self.dataList.count) {
-        [self.tableView.mj_footer endRefreshingWithNoMoreData];
-    } else{
-        [self.tableView.mj_footer endRefreshing];
-    }
+    [self.tableView.mj_footer endRefreshing];
+    
 }
 
 /*
@@ -215,9 +204,9 @@
         _dataList = [NSMutableArray array];
         
         // load data
-        NSArray *response = self.path.mainBundlePath.readArray;
-        
-        [_dataList addObjectsFromArray:[CameraSource mj_objectArrayWithKeyValuesArray:response]];
+//        NSArray *response = self.path.mainBundlePath.readArray;
+//        [_dataList addObjectsFromArray:[CameraSource mj_objectArrayWithKeyValuesArray:response]];
+//        [ATRealmManager cacheHotCameras:_dataList];
     }
     return _dataList;
 }
@@ -227,15 +216,15 @@
         // create it
         _frameDataList = [NSMutableArray array];
         // do something...
-        // load data
-        NSArray *response = self.path.mainBundlePath.readArray;
-        for (NSDictionary *dict in response) {
-            CameraSource *model = [CameraSource mj_objectWithKeyValues:dict];
+        
+    }
+    if (self.dataList.count != _frameDataList.count) {
+        [_frameDataList removeAllObjects];
+        for (CameraSource *model in self.dataList) {
             CamerFrameModel *frameModel = [[CamerFrameModel alloc] init];
             frameModel.model = model;
             [_frameDataList addObject:frameModel];
         }
-        
     }
     return _frameDataList;
 }
@@ -244,7 +233,7 @@
 
 // number of sections
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return fmin(self.dataList.count, self.page*10);
+    return self.dataList.count;
 }
 
 // number of rows in section
@@ -275,6 +264,8 @@
         self.scrollViewWillBeginDragging();
     }
 }
+
+
 
 
 

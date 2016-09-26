@@ -16,9 +16,9 @@
 @property (weak, nonatomic) IBOutlet UIView *sendVideo;
 
 
-- (void)didFinishPickImage:(void(^)(UIImage *image))image;
+- (void)didFinishPickImage:(void(^)(NSData *image))image;
 - (void)didFinishPickAudio:(void(^)(NSURL *audio))audio;
-- (void)didFinishPickPhoto:(void(^)(UIImage *photo))photo;
+- (void)didFinishPickPhoto:(void(^)(NSData *photo))photo;
 - (void)didFinishPickVideo:(void(^)(NSURL *video))video;
 
 

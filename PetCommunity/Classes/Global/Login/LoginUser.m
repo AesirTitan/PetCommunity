@@ -11,6 +11,9 @@
 
 LoginUser *loginUser = nil;
 
+static NSString *sUserId = @"307935";
+static NSString *sUserName = @"泰坦";
+
 @implementation LoginUser
 
 + (void)load{
@@ -21,12 +24,17 @@ LoginUser *loginUser = nil;
     if (!loginUser) {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            loginUser = loginUserCachePath.readArchivedPlist;
+            
+            RLMResults *results = [UserSource objectsInRealm:RLMUser where:@"user_id == %@", sUserId];
+            if (results.count) {
+                loginUser = results[0];
+            }
             // do something...
             if (!loginUser) {
                 loginUser = [LoginUser randomUser];
-                loginUser.nickname = @"泰坦";
-                loginUserCachePath.saveArchivedPlist(loginUser);
+                loginUser.user_id = sUserId;
+                loginUser.nickname = sUserName;
+                [ATRealmManager cacheUser:loginUser];
             }
         });
     }

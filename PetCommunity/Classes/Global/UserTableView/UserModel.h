@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Realm/Realm.h>
 
 @class UserTag,UserSource,UserNewest_Pet,UserAddress_Json;
-@interface UserModel : NSObject
+@interface UserModel : RLMObject
 
 
 @property (nonatomic, copy) NSString *code;
@@ -26,13 +27,13 @@
 
 
 @end
-@interface UserTag : NSObject
+@interface UserTag : RLMObject
 
 @property (nonatomic, strong) UserSource *source;
 
 @end
 
-@interface UserSource : NSObject <NSCoding>
+@interface UserSource : RLMObject
 
 @property (nonatomic, assign) NSInteger fans_count;
 
@@ -78,7 +79,7 @@
 
 @end
 
-@interface UserNewest_Pet : NSObject
+@interface UserNewest_Pet : RLMObject
 
 @property (nonatomic, copy) NSString *pet_id;
 
@@ -90,7 +91,7 @@
 
 @end
 
-@interface UserAddress_Json : NSObject
+@interface UserAddress_Json : RLMObject
 
 @property (nonatomic, copy) NSString *district;
 

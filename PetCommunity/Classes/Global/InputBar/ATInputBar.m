@@ -276,7 +276,7 @@ static CGFloat sHeight = 64;
     return _mediaPicker;
 }
 
-- (void)didFinishPickImage:(void(^)(UIImage *))image {
+- (void)didFinishPickImage:(void(^)(NSData *))image {
     [self.mediaPicker didFinishPickImage:image];
 }
 
@@ -284,7 +284,7 @@ static CGFloat sHeight = 64;
     [self.mediaPicker didFinishPickAudio:audio];
 }
 
-- (void)didFinishPickPhoto:(void(^)(UIImage *))photo {
+- (void)didFinishPickPhoto:(void(^)(NSData *))photo {
     [self.mediaPicker didFinishPickPhoto:photo];
 }
 

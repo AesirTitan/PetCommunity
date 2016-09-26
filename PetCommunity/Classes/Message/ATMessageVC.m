@@ -47,7 +47,6 @@
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     [self.timer at_pause];
-    [self.tableView cacheMessages];
 }
 
 

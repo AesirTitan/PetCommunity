@@ -31,27 +31,4 @@
 }
 
 
-// archive
-- (void)encodeWithCoder:(NSCoder *)aCoder{
-    [aCoder encodeInteger:self.messageType forKey:@"messageType"];
-    [aCoder encodeObject:self.content forKey:@"content"];
-    [aCoder encodeObject:self.url forKey:@"url"];
-    [aCoder encodeObject:self.image forKey:@"image"];
-    [aCoder encodeInteger:self.isFromMe forKey:@"isFromMe"];
-}
-
-// unarchive
-- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder{
-    if(self = [super init]){
-        self.messageType = [aDecoder decodeIntegerForKey:@"messageType"];
-        self.content = [aDecoder decodeObjectForKey:@"content"];
-        self.url = [aDecoder decodeObjectForKey:@"url"];
-        self.image = [aDecoder decodeObjectForKey:@"image"];
-        self.isFromMe = [aDecoder decodeIntegerForKey:@"isFromMe"];
-    }
-    return self;
-}
-
-
-
 @end

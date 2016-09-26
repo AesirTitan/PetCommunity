@@ -21,10 +21,12 @@
 // scroll
 @property (copy, nonatomic) void (^scrollViewWillBeginDragging)();
 
-+ (instancetype)tableViewWithFrame:(CGRect)frame URL:(NSString *)url parameter:(void (^)(NSMutableDictionary *dictWithDefaultUser))parameter;
 
-+ (instancetype)tableViewWithFrame:(CGRect)frame URL:(NSString *)URL;
 
+//+ (instancetype)tableViewWithFrame:(CGRect)frame URL:(NSString *)url parameter:(void (^)(NSMutableDictionary *dictWithDefaultUser))parameter;
+
+//+ (instancetype)tableViewWithFrame:(CGRect)frame URL:(NSString *)URL;
++ (instancetype)tableViewWithFrame:(CGRect)frame isFollowed:(BOOL)followed;
 
 - (void)loadNewData;
 - (void)loadMoreData;

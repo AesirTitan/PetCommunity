@@ -28,39 +28,6 @@
 }
 
 
-
-// archive
-- (void)encodeWithCoder:(NSCoder *)aCoder
-{
-    [aCoder encodeObject:self.nickname forKey:@"nickname"];
-    [aCoder encodeObject:self.image forKey:@"image"];
-    
-    [aCoder encodeInteger:self.follow_count forKey:@"follow_count"];
-    [aCoder encodeInteger:self.fans_count forKey:@"fans_count"];
-    [aCoder encodeObject:self.praise_count forKey:@"praise_count"];
-    [aCoder encodeObject:self.is_follow forKey:@"is_follow"];
-    
-}
-
-// unarchive
-- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder
-{
-    if(self = [super init]){
-        self.nickname = [aDecoder decodeObjectForKey:@"nickname"];
-        self.image = [aDecoder decodeObjectForKey:@"image"];
-        
-        self.follow_count = [aDecoder decodeIntegerForKey:@"follow_count"];
-        self.fans_count = [aDecoder decodeIntegerForKey:@"fans_count"];
-        self.praise_count = [aDecoder decodeObjectForKey:@"praise_count"];
-        self.is_follow = [aDecoder decodeObjectForKey:@"is_follow"];
-        
-    }
-    return self;
-}
-
-
-
-
 @end
 
 

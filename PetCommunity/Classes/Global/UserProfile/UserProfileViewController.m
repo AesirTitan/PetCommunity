@@ -70,7 +70,7 @@
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     if (![self.user.nickname isEqualToString:loginUser.nickname]) {
-        userCachePath(self.user.nickname).saveArchivedPlist(self.user);
+//        userCachePath(self.user.nickname).saveArchivedPlist(self.user);
     }
 }
 
@@ -120,14 +120,14 @@
 - (UserSource *)user{
     if (!_user) {
         // create it
-        _user = userCachePath(self.cameraUser.nickname).readArchivedPlist;
+        _user = [ATRealmManager userWithName:self.cameraUser.nickname];
         // do something...
         if (!_user) {
             _user = [UserSource randomUser];
             _user.nickname = self.cameraUser.nickname;
             _user.image = self.cameraUser.image;
             _user.is_follow = NSStringFromNSUInteger(self.cameraUser.is_follow);
-            userCachePath(self.cameraUser.nickname).saveArchivedPlist(_user);
+            [ATRealmManager cacheUser:_user];
         }
     }
     return _user;
@@ -220,11 +220,7 @@
         // create it
         _follow = [ATMaterialButton buttonWithImage:@"icon_follow" title:@"关注" action:^(UIButton *sender) {
             _follow.selected = !_follow.selected;
-            if (_follow.selected) {
-                self.user.is_follow = @"1";
-            } else{
-                self.user.is_follow = @"2";
-            }
+            [ATRealmManager user:self.user setFollow:_follow.selected];
         }];
         [_follow setTitle:@"已关注" forState:UIControlStateSelected];
         [_follow setImage:[UIImage imageNamed:@"icon_followed"] forState:UIControlStateSelected];
@@ -240,10 +236,11 @@
             if ([self.navigationController.viewControllers[count-2] isKindOfClass:[ChatViewController class]]) {
                 [self.navigationController popViewControllerAnimated:YES];
             } else{
-                ChatModel *chat = chatCachePath(self.user.nickname).readArchivedPlist;
+                ChatModel *chat = [ATRealmManager chatWithUser:self.user];
                 if (!chat) {
                     chat = [ChatModel new];
                     chat.user = self.user;
+                    [ATRealmManager addNewChat:chat];
                 }
                 ChatViewController *vc = [[ChatViewController alloc] initWithChatModel:chat];
                 [self.navigationController pushViewController:vc animated:YES];

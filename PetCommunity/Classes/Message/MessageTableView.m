@@ -62,11 +62,11 @@ static NSString *kMessageTableViewCell = @"MessageTableViewCell";
     if (self.messageList.count) {
         // get chat model
         NSUInteger index = (NSUInteger)arc4random_uniform((int)self.messageList.count);
-        ChatModel *model = self.messageList[index];
-        // add new messages
-        [model addMessage];
-        // cache messages
-        [self cacheMessages];
+        [RLMUser transactionWithBlock:^{
+            ChatModel *model = self.messageList[index];
+            // add new messages
+            [model addMessage];
+        }];
         // reload
         [self at_delay:0.2 performInMainQueue:^(id  _Nonnull obj) {
             [self reload];
@@ -84,27 +84,8 @@ static NSString *kMessageTableViewCell = @"MessageTableViewCell";
 }
 
 
-
-- (void)cacheMessages{
-    for (ChatModel *chat in self.messageList) {
-        chatCachePath(chat.user.nickname).saveArchivedPlist(chat);
-    }
-}
-
 - (void)loadMessages{
-    NSArray<NSString *> *messagePaths = @"Message".cachePath.subpaths(@"plist");
-    for (NSString *path in messagePaths) {
-        ChatModel *chat = path.readArchivedPlist;
-        if (!chat.user.nickname.length) {
-            chat.user.nickname = @"未知用户";
-        }
-        chat.messages = chat.messages;
-        if (!chat.messages) {
-            chat.messages = [NSMutableArray array];
-            [chat.messages insertObject:[MessageModel randomTextMessageToMe] atIndex:0];
-        }
-        [self.messageList addObject:chat];
-    }
+    self.messageList = [ATRealmManager messagesList];
 }
 
 - (void)updateBadge{
@@ -114,6 +95,8 @@ static NSString *kMessageTableViewCell = @"MessageTableViewCell";
     }
     if (count) {
         self.controller.tabBarItem.badgeValue = NSStringFromNSUInteger(count);
+    } else {
+        self.controller.tabBarItem.badgeValue = nil;
     }
 }
 
@@ -144,7 +127,7 @@ static NSString *kMessageTableViewCell = @"MessageTableViewCell";
     // will delete
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // remove cache
-        chatCachePath(self.messageList[indexPath.row].user.nickname).removePlist;
+        [ATRealmManager deleteChat:self.messageList[indexPath.row]];
         // NSMutableArray remove object at index
         [self.messageList removeObjectAtIndex:indexPath.row];
         // table view delete rows at index path

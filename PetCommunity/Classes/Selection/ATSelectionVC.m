@@ -38,6 +38,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.tableView.tableView reloadData];
+}
+
 // setup navigationBar
 - (void)setupNavigationBar{
     
@@ -66,7 +71,7 @@
 
 - (void)setupTableView{
    
-    self.tableView = [CameraTableView tableViewWithFrame:CGRectWithTopAndBottomMargin(64, 49) URL:kURLHotCamera];
+    self.tableView = [CameraTableView tableViewWithFrame:CGRectWithTopAndBottomMargin(64, 49) isFollowed:NO];
     [self.tableView.tableView registerNib:[UINib nibWithNibName:@"SectionHeader" bundle:[NSBundle mainBundle]] forHeaderFooterViewReuseIdentifier:@"SectionHeader"];
     self.tableView.tableView.tableHeaderView = [SelectionHeader headerWithHeight:180];
     [self.view addSubview:self.tableView];

@@ -17,6 +17,6 @@
 
 #import "LoginUser.h"
 #import "PetConst.h"
-
+#import "ATRealmManager.h"
 
 #endif /* PrefixHeader_pch */

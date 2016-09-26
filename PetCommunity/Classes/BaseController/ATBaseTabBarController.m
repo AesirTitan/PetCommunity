@@ -141,27 +141,27 @@
 // setup notification
 - (void)setupNotification{
     // init and add to superview
-    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotiReceiveMessage object:nil] subscribeNext:^(id x) {
-        NSArray<NSString *> *messagePaths = @"Message".cachePath.subpaths(@"plist");
-        NSUInteger count = 0;
-        for (NSString *path in messagePaths) {
-            ChatModel *chat = path.readArchivedPlist;
-            if (!chat.user.nickname.length) {
-                chat.user.nickname = @"未知用户";
-            }
-            chat.messages = chat.messages;
-            if (!chat.messages) {
-                chat.messages = [NSMutableArray array];
-                [chat.messages insertObject:[MessageModel randomTextMessageToMe] atIndex:0];
-            }
-            count += chat.unreadCount;
-        }
-        if (count) {
-            self.messageVC.tabBarItem.badgeValue = NSStringFromNSUInteger(count);
-        }
-    }];
+//    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotiReceiveMessage object:nil] subscribeNext:^(id x) {
+//        NSArray<NSString *> *messagePaths = @"Message".cachePath.subpaths(@"plist");
+//        NSUInteger count = 0;
+//        for (NSString *path in messagePaths) {
+//            ChatModel *chat = path.readArchivedPlist;
+//            if (!chat.user.nickname.length) {
+//                chat.user.nickname = @"未知用户";
+//            }
+//            chat.messages = chat.messages;
+//            if (!chat.messages) {
+//                chat.messages = [NSMutableArray array];
+//                [chat.messages insertObject:[MessageModel randomTextMessageToMe] atIndex:0];
+//            }
+//            count += chat.unreadCount;
+//        }
+//        if (count) {
+//            self.messageVC.tabBarItem.badgeValue = NSStringFromNSUInteger(count);
+//        }
+//    }];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotiReceiveMessage object:nil];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:kNotiReceiveMessage object:nil];
     
 }
 

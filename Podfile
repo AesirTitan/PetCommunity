@@ -8,7 +8,7 @@ target ‘PetCommunity’ do
   pod 'MaterialControls'
   pod 'SDWebImage'
   pod 'YYKit'
-  
+  pod 'Realm'
   pod 'ReactiveCocoa'
   
 #  pod 'MBProgressHUD'

@@ -84,18 +84,17 @@ static CGFloat lastY = 0;
 
 - (void)reloadSubviewsWithSource:(CameraSource *)source{
     NSUInteger count = source.camera.discuz_count.integerValue;
-    NSArray<CameraSocial_Discuz *> *models = source.social_discuz;
     
     NSInteger tag = 10;
-    for (int i=0; i<models.count; i++) {
+    for (int i=0; i<source.social_discuz.count; i++) {
         
         UILabel *lb_name = [self viewWithTag:tag++];
-        lb_name.text = [models[i].user_nickname stringByReplacingOccurrencesOfString:@" " withString:@""];
+        lb_name.text = [source.social_discuz[i].user_nickname stringByReplacingOccurrencesOfString:@" " withString:@""];
         [lb_name sizeToFit];
         
         
         UILabel *lb_content = [self viewWithTag:tag++];
-        lb_content.text = [@" : " stringByAppendingString:models[i].content];
+        lb_content.text = [@" : " stringByAppendingString:source.social_discuz[i].content];
         lb_content.left = lb_name.right;
         lb_content.width = self.width - lb_content.left;
         

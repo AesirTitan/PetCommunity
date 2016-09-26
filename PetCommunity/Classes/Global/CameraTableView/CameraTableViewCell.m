@@ -78,14 +78,7 @@
             }
             // other
             else {
-                NSUInteger count = self.controller.navigationController.viewControllers.count;
-                if (count <= 1) {
-                    CommentDetailVC *vc = [[CommentDetailVC alloc] initWithFrameModel:self.frameModel];
-                    [self.controller.navigationController pushViewController:vc animated:YES];
-                } else{
-                    
-                }
-                
+                [self pushCommentDetailVC];
             }
         }];
         // avatar
@@ -124,7 +117,7 @@
         self.shareButton = share;
         // comment
         ATSocialButton *comment = [ATSocialButton buttonWithImage:@"icon_comment" action:^(UIButton *sender) {
-            ATLogFunc;
+            [self pushCommentDetailVC];
         }];
         [self.contentView addSubview:comment];
         self.commentButton = comment;
@@ -137,6 +130,7 @@
             } else{
                 count--;
             }
+            [ATRealmManager camera:self.frameModel.model setLike:sender.selected];
             [sender setTitle:[NSString stringWithFormat:@"%ld",count] forState:UIControlStateNormal];
         }];
         [self.contentView addSubview:like];
@@ -182,6 +176,11 @@
     
     [self.likeButton setTitle:camera.praise_count forState:UIControlStateNormal];
     self.likeButton.frame = frameModel.likeButtonFrame;
+    if (camera.is_praise == 1) {
+        self.likeButton.selected = YES;
+    } else{
+        self.likeButton.selected = NO;
+    }
     
     NSString *str = [NSString stringWithFormat:@"浏览%@次",camera.view_count];
     [self.viewCount setTitle:str forState:UIControlStateNormal];
@@ -189,5 +188,13 @@
     
 }
 
+
+- (void)pushCommentDetailVC{
+    NSUInteger count = self.controller.navigationController.viewControllers.count;
+    if (count <= 1) {
+        CommentDetailVC *vc = [[CommentDetailVC alloc] initWithFrameModel:self.frameModel];
+        [self.controller.navigationController pushViewController:vc animated:YES];
+    }
+}
 
 @end

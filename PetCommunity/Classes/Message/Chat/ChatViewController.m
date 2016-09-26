@@ -14,6 +14,7 @@
 #import "ATNetworkManager.h"
 #import "ATBaseTabBarController.h"
 #import "AFNetworking.h"
+#import "UserProfileViewController.h"
 
 static NSString *kChatTableViewCell = @"ChatTableViewCell";
 
@@ -23,7 +24,7 @@ static NSString *kChatTableViewCell = @"ChatTableViewCell";
 @property (strong, nonatomic) UITableView *tableView;
 
 // message list
-@property (strong, nonatomic) NSMutableArray<MessageModel *> *messages;
+@property (strong, nonatomic) RLMArray<MessageModel *><MessageModel> *messages;
 
 // input bar
 @property (strong, nonatomic) ATInputBar *inputBar;
@@ -65,21 +66,15 @@ static NSString *kChatTableViewCell = @"ChatTableViewCell";
     });
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    chatCachePath(self.model.user.nickname).saveArchivedPlist(self.model);
-//    self.tableView = nil;
-//    self.messages = nil;
-//    self.inputBar = nil;
-}
 
 // setup navigationBar
 - (void)setupNavigationBar{
     self.navigationItem.title = self.model.user.nickname;
     
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem at_itemWithImage:[UIImage imageNamed:@"icon_more"] style:UIBarButtonItemStylePlain action:^(id  _Nonnull sender) {
-        [self addRandomMessage];
         
+        UserProfileViewController *vc = [[UserProfileViewController alloc] initWithUser:self.model.user];
+        [self.navigationController pushViewController:vc animated:YES];
     }];
     
 }
@@ -131,10 +126,10 @@ static NSString *kChatTableViewCell = @"ChatTableViewCell";
     [self.inputBar didFinishPickAudio:^(NSURL *audio) {
         
     }];
-    [self.inputBar didFinishPickImage:^(UIImage *image) {
+    [self.inputBar didFinishPickImage:^(NSData *image) {
         [self sendImage:image];
     }];
-    [self.inputBar didFinishPickPhoto:^(UIImage *photo) {
+    [self.inputBar didFinishPickPhoto:^(NSData *photo) {
         
         
     }];
@@ -152,7 +147,10 @@ static NSString *kChatTableViewCell = @"ChatTableViewCell";
     [self.inputBar submitComment];
     MessageModel *item = [MessageModel randomTextMessageFromMe];
     item.content = msg;
-    [self.messages addObject:item];
+    
+    [RLMUser transactionWithBlock:^{
+        [self.messages addObject:item];
+    }];
     
     [self.tableView reloadData];
     [self at_delay:0.1 performInMainQueue:^(id  _Nonnull obj) {
@@ -163,7 +161,7 @@ static NSString *kChatTableViewCell = @"ChatTableViewCell";
 
 
 
-- (void)sendImage:(UIImage *)image{
+- (void)sendImage:(NSData *)image{
     
     // set model
     MessageModel *item = [MessageModel randomTextMessageFromMe];
@@ -172,7 +170,9 @@ static NSString *kChatTableViewCell = @"ChatTableViewCell";
     // send image url
     item.image = image;
     item.content = @"[图片]";
-    [self.messages addObject:item];
+    [RLMUser transactionWithBlock:^{
+        [self.messages addObject:item];
+    }];
     
     // main thread main queue update UI
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -196,23 +196,15 @@ static NSString *kChatTableViewCell = @"ChatTableViewCell";
     MessageModel *message = [MessageModel randomTextMessageToMe];
     message.messageType = MessageTypeText;
     message.content = msg;
-    [self.messages addObject:message];
+    [RLMUser transactionWithBlock:^{
+        [self.messages addObject:message];
+    }];
     [self.tableView reloadData];
     [self at_delay:0.1 performInMainQueue:^(id  _Nonnull obj) {
         [self.tableView scrollRectToVisible:self.tableView.tableFooterView.frame animated:YES];
     }];
 }
 
-- (void)addRandomMessage {
-    
-    [self.messages addObject:[MessageModel randomTextMessageToMe]];
-     
-    [self.tableView reloadData];
-    [self at_delay:0.1 performInMainQueue:^(id  _Nonnull obj) {
-        [self.tableView scrollRectToVisible:self.tableView.tableFooterView.frame animated:YES];
-    }];
-    
-}
 
 - (ChatModel *)model{
     if (!_model) {
@@ -226,14 +218,11 @@ static NSString *kChatTableViewCell = @"ChatTableViewCell";
     return _model;
 }
 
-- (NSMutableArray<MessageModel *> *)messages{
+- (RLMArray<MessageModel *><MessageModel> *)messages{
     if (!_messages) {
         // create it
         _messages = self.model.messages;
         // do something...
-        if (!_messages) {
-            _messages = [NSMutableArray array];
-        }
     }
     return _messages;
 }

@@ -22,7 +22,7 @@
 @property (strong, nonatomic) UITableView *tableView;
 
 // comment
-@property (strong, nonatomic) NSMutableArray<CameraSocial_Discuz *> *comment;
+@property (strong, nonatomic) RLMArray<CameraSocial_Discuz *><CameraSocial_Discuz> *comments;
 
 // header
 @property (strong, nonatomic) CameraTableViewCell *header;
@@ -90,7 +90,7 @@
     self.header.height = self.header.frameModel.cellHeight;
     self.tableView.tableHeaderView = self.header;
     
-    self.comment = [NSMutableArray arrayWithArray:self.frameModel.model.social_discuz];
+    self.comments = self.frameModel.model.social_discuz;
     
     
 }
@@ -119,12 +119,11 @@
 }
 
 - (void)submitComment:(NSString *)text{
-    CameraSocial_Discuz *item = [CameraSocial_Discuz newItemWithUser:loginUser content:text];
-    [self.comment addObject:item];
+    [ATRealmManager camera:self.frameModel.model addComment:text];
     [self.tableView reloadData];
     [ATProgressHUD at_target:self.view showInfo:@"评论成功！" duration:1];
     [self.commentBar submitComment];
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.comment.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.comments.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 - (void)_endEditing{
@@ -140,7 +139,7 @@
 
 // number of rows in section
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.comment.count;
+    return self.comments.count;
 }
 
 // cell
@@ -148,13 +147,14 @@
     // dequeue reusable cell with reuse identifier
     CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell"];
     // do something
-    cell.model = self.comment[indexPath.row];
-    UserSource *user = userCachePath(cell.model.user_nickname).readArchivedPlist;
+    cell.model = self.comments[indexPath.row];
+    
+    UserSource *user = [ATRealmManager userWithName:cell.model.user_nickname];
     if (!user) {
         user = [UserSource randomUser];
         user.nickname = cell.model.user_nickname;
         user.image = cell.model.user_image;
-        userCachePath(cell.model.user_nickname).saveArchivedPlist(user);
+        [ATRealmManager cacheUser:user];
     }
     cell.user = user;
     [cell tappedCell:^(NSString *nickname) {

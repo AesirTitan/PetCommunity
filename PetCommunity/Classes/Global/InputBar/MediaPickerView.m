@@ -17,11 +17,11 @@
 @property (strong, nonatomic) UIImagePickerController *picker;
 
 // image
-@property (copy, nonatomic) void (^imageBlock)(UIImage *);
+@property (copy, nonatomic) void (^imageBlock)(NSData *);
 // image
 @property (copy, nonatomic) void (^audioBlock)(NSURL *);
 // image
-@property (copy, nonatomic) void (^photoBlock)(UIImage *);
+@property (copy, nonatomic) void (^photoBlock)(NSData *);
 // image
 @property (copy, nonatomic) void (^videoBlock)(NSURL *);
 
@@ -45,7 +45,7 @@ typedef NS_ENUM(NSUInteger,PickType){
     self.sendVideo.layer.at_maskToCircle();
     
     [self.sendAudio at_addTapGestureHandler:^(UITapGestureRecognizer * _Nonnull sender) {
-        [self showPickerWith:PickTypePhotoLibrary];
+        atMarkSelf;
     }];
     [self.sendImage at_addTapGestureHandler:^(UITapGestureRecognizer * _Nonnull sender) {
         [self showPickerWith:PickTypePhotoLibrary];
@@ -95,9 +95,10 @@ typedef NS_ENUM(NSUInteger,PickType){
     if ([info[UIImagePickerControllerMediaType] isEqualToString:(NSString *)kUTTypeImage]) {
         // send image
         if (self.imageBlock) {
-            self.imageBlock(info[UIImagePickerControllerEditedImage]);
+            NSData *data = UIImagePNGRepresentation(info[UIImagePickerControllerEditedImage]);
+            self.imageBlock(data);
         }
-        // cache
+        
     }
     
     // video
@@ -106,13 +107,7 @@ typedef NS_ENUM(NSUInteger,PickType){
         if (self.videoBlock) {
             self.videoBlock(info[UIImagePickerControllerMediaURL]);
         }
-        // cache
-        BOOL canbesaved =  UIVideoAtPathIsCompatibleWithSavedPhotosAlbum([info[UIImagePickerControllerMediaURL] path]);
-        if (canbesaved) {
-            // 将movie保存到相册
-            UISaveVideoAtPathToSavedPhotosAlbum([info[UIImagePickerControllerMediaURL] path], self, @selector(videoSavedToPhotosAlbum:didFinishSavingWithError:contextInfo:), nil);
-            
-        }
+        
     }else{
         NSLog(@"%@",info[UIImagePickerControllerMediaType]);
     }
@@ -144,7 +139,7 @@ typedef NS_ENUM(NSUInteger,PickType){
 
 
 
-- (void)didFinishPickImage:(void(^)(UIImage *))image {
+- (void)didFinishPickImage:(void(^)(NSData *))image {
     self.imageBlock = image;
 }
 
@@ -152,38 +147,13 @@ typedef NS_ENUM(NSUInteger,PickType){
     self.audioBlock = audio;
 }
 
-- (void)didFinishPickPhoto:(void(^)(UIImage *))photo {
+- (void)didFinishPickPhoto:(void(^)(NSData *))photo {
     self.photoBlock = photo;
 }
 
 - (void)didFinishPickVideo:(void(^)(NSURL *))video {
     self.videoBlock = video;
 }
-
-
-#pragma mark - private methods
-
-
-- (void)imageSavedToPhotosAlbum:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
-{
-    if (!error) {
-        NSLog(@"图片保存成功");
-    }else{
-        NSLog(@"图片保存不成功,error:%@",error);
-    }
-}
-
-- (void)videoSavedToPhotosAlbum:(NSString *)videoPath didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
-{
-    if (!error) {
-        NSLog(@"视频保存成功");
-    }else{
-        NSLog(@"视频保存不成功,error:%@",error);
-    }
-}
-
-
-
 
 
 

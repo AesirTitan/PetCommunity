@@ -95,9 +95,11 @@
         }
         case MessageTypeImage: {
             self.contentImage.hidden = NO;
-            self.contentImage.image = message.image;
-            CGSize size = message.image.size;
-            self.heightOfImage.constant = self.contentImage.width * size.height/size.width;
+            self.contentImage.image = [UIImage imageWithData:message.image];
+            CGSize size = self.contentImage.image.size;
+            if (size.width && size.height) {
+                self.heightOfImage.constant = self.contentImage.width * size.height/size.width;
+            }
             
             
             break;

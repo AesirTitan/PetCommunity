@@ -7,19 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Realm/Realm.h>
 #import "MessageModel.h"
 #import "UserModel.h"
 
-@interface ChatModel : NSObject <NSCoding>
+@interface ChatModel : RLMObject
 
 // nickname
 @property (strong, nonatomic) UserSource *user;
 
 // content
-@property (strong, nonatomic) NSMutableArray<MessageModel *> *messages;
+@property (strong, nonatomic) RLMArray<MessageModel *><MessageModel> *messages;
 
 // unread count
-@property (assign, nonatomic) NSUInteger unreadCount;
+@property (assign, nonatomic) NSInteger unreadCount;
 
 
 + (instancetype)messageWithRandom;

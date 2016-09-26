@@ -70,7 +70,7 @@
 
 - (void)setupTableView{
     
-    self.tableView = [CameraTableView tableViewWithFrame:CGRectWithTopAndBottomMargin(64, 49) URL:kURLFollowedCamera];
+    self.tableView = [CameraTableView tableViewWithFrame:CGRectWithTopAndBottomMargin(64, 49) isFollowed:YES];
     [self.view addSubview:self.tableView];
     
 }

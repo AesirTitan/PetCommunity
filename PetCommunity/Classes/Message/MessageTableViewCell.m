@@ -53,7 +53,9 @@
 - (void)setUnreadCount:(NSUInteger)unreadCount{
     _unreadCount = unreadCount;
     self.badgeLabel.text = NSStringFromNSUInteger(unreadCount);
-    self.model.unreadCount = unreadCount;
+    [RLMUser transactionWithBlock:^{
+        self.model.unreadCount = unreadCount;
+    }];
 }
 
 - (void)setModel:(ChatModel *)model{

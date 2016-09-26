@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Realm/Realm.h>
 
-@interface MessageModel : NSObject <NSCoding>
+@interface MessageModel : RLMObject
 
 
-typedef NS_ENUM(NSUInteger, MessageType){
+typedef NS_ENUM(NSInteger, MessageType){
     MessageTypeText,
     MessageTypeImage,
     MessageTypeAudio,
@@ -27,7 +28,7 @@ typedef NS_ENUM(NSUInteger, MessageType){
 // url
 @property (copy, nonatomic) NSString *url;
 // image
-@property (strong, nonatomic) UIImage *image;
+@property (strong, nonatomic) NSData *image;
 // is from me
 @property (assign, nonatomic) BOOL isFromMe;
 
@@ -36,6 +37,6 @@ typedef NS_ENUM(NSUInteger, MessageType){
 + (instancetype)randomTextMessageFromMe;
 
 
-
-
 @end
+
+RLM_ARRAY_TYPE(MessageModel)
