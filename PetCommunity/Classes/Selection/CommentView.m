@@ -20,6 +20,7 @@ static CGFloat lastY = 0;
     
     [self _initUI];
     
+    [super awakeFromNib];
 }
 + (instancetype)viewWithFrame:(CGRect)frame andAddToView:(UIView *)view {
     return [[self alloc] initWithFrame:frame andAddToView:view];

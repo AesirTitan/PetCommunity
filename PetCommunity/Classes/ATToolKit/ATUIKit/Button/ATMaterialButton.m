@@ -19,6 +19,7 @@ static CGFloat velocity = 0.1f;
     [self _initUI];
     [self normalStatus];
     self.rippleColor = atColor.theme.darkRatio(0.2);
+    [super awakeFromNib];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{

@@ -211,7 +211,7 @@
 // Load from local file
 - (void)_performLoadUnderlyingImageAndNotifyWithWebURL:(NSURL *)url {
     @try {
-        SDWebImageManager *manager = [SDWebImageManager sharedManager];
+//        SDWebImageManager *manager = [SDWebImageManager sharedManager];
         //mark
 //        _webImageOperation = [manager downloadImageWithURL:url
 //                                                   options:0
