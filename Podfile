@@ -9,7 +9,7 @@ target ‘PetCommunity’ do
   pod 'SDWebImage'
   pod 'YYKit'
   pod 'Realm'
-  pod 'ReactiveCocoa'
+  pod 'ReactiveObjC'
   
 #  pod 'MBProgressHUD'
   pod 'FMDB'

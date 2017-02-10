@@ -50,13 +50,12 @@ const size_t c_zeroRowIndex = 0;
 const char c_object_table_prefix[] = "class_";
 
 void create_metadata_tables(Group& group) {
-    TableRef table = group.get_or_add_table(c_primaryKeyTableName);
-    if (table->get_column_count() == 0) {
-        table->add_column(type_String, c_primaryKeyObjectClassColumnName);
-        table->add_column(type_String, c_primaryKeyPropertyNameColumnName);
-    }
-
-    table = group.get_or_add_table(c_metadataTableName);
+    // FIXME: the order of the creation of the two tables seems to
+    // matter for some Android devices. The reason is unclear, and
+    // further investigation is required.
+    // See https://github.com/realm/realm-java/issues/3651
+    
+    TableRef table = group.get_or_add_table(c_metadataTableName);
     if (table->get_column_count() == 0) {
         table->add_column(type_Int, c_versionColumnName);
 
@@ -64,6 +63,13 @@ void create_metadata_tables(Group& group) {
         table->add_empty_row();
         table->set_int(c_versionColumnIndex, c_zeroRowIndex, ObjectStore::NotVersioned);
     }
+
+    table = group.get_or_add_table(c_primaryKeyTableName);
+    if (table->get_column_count() == 0) {
+        table->add_column(type_String, c_primaryKeyObjectClassColumnName);
+        table->add_column(type_String, c_primaryKeyPropertyNameColumnName);
+    }
+    table->add_search_index(table->get_column_index(c_primaryKeyObjectClassColumnName));
 }
 
 void set_schema_version(Group& group, uint64_t version) {
@@ -92,6 +98,10 @@ void add_index(Table& table, size_t col)
 
 void insert_column(Group& group, Table& table, Property const& property, size_t col_ndx)
 {
+    // Cannot directly insert a LinkingObjects column (a computed property).
+    // LinkingObjects must be an artifact of an existing link column.
+    REALM_ASSERT(property.type != PropertyType::LinkingObjects);
+
     if (property.type == PropertyType::Object || property.type == PropertyType::Array) {
         auto target_name = ObjectStore::table_name_for_object_type(property.object_type);
         TableRef link_table = group.get_or_add_table(target_name);
@@ -136,13 +146,9 @@ void copy_property_values(Property const& prop, Table& table)
 {
     auto copy_property_values = [&](auto getter, auto setter) {
         for (size_t i = 0, count = table.size(); i < count; i++) {
-#if REALM_VER_MAJOR >= 2
             bool is_default = false;
             (table.*setter)(prop.table_column, i, (table.*getter)(prop.table_column + 1, i),
                             is_default);
-#else
-            (table.*setter)(prop.table_column, i, (table.*getter)(prop.table_column + 1, i));
-#endif
         }
     };
 
@@ -207,6 +213,12 @@ void validate_primary_column_uniqueness(Group const& group)
 }
 } // anonymous namespace
 
+// FIXME remove this after integrating OS's migration related logic into Realm java
+void ObjectStore::set_schema_version(Group& group, uint64_t version) {
+    ::create_metadata_tables(group);
+    ::set_schema_version(group, version);
+}
+
 uint64_t ObjectStore::get_schema_version(Group const& group) {
     ConstTableRef table = group.get_table(c_metadataTableName);
     if (!table || table->get_column_count() == 0) {
@@ -234,13 +246,13 @@ void ObjectStore::set_primary_key_for_object(Group& group, StringData object_typ
     size_t row = table->find_first_string(c_primaryKeyObjectClassColumnIndex, object_type);
     if (row == not_found && primary_key.size()) {
         row = table->add_empty_row();
-        table->set_string(c_primaryKeyObjectClassColumnIndex, row, object_type);
+        row = table->set_string_unique(c_primaryKeyObjectClassColumnIndex, row, object_type);
     }
 
     // set if changing, or remove if setting to nil
     if (primary_key.size() == 0) {
         if (row != not_found) {
-            table->remove(row);
+            table->move_last_over(row);
         }
     }
     else {
@@ -457,14 +469,13 @@ static void create_initial_tables(Group& group, std::vector<SchemaChange> const&
         void operator()(RemoveProperty op) { table(op.object).remove_column(op.property->table_column); }
         void operator()(MakePropertyNullable op) { make_property_optional(group, table(op.object), *op.property); }
         void operator()(MakePropertyRequired op) { make_property_required(group, table(op.object), *op.property); }
-        void operator()(ChangePrimaryKey op) { ObjectStore::set_primary_key_for_object(group, op.object->name, op.property->name); }
+        void operator()(ChangePrimaryKey op) { ObjectStore::set_primary_key_for_object(group, op.object->name, op.property ? StringData{op.property->name} : ""); }
         void operator()(AddIndex op) { add_index(table(op.object), op.property->table_column); }
         void operator()(RemoveIndex op) { table(op.object).remove_search_index(op.property->table_column); }
 
         void operator()(ChangePropertyType op)
         {
-            insert_column(group, table(op.object), *op.new_property, op.old_property->table_column);
-            table(op.object).remove_column(op.old_property->table_column + 1);
+            replace_column(group, table(op.object), *op.old_property, *op.new_property);
         }
     } applier{group};
 

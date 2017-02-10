@@ -113,7 +113,7 @@
 }
 
 // fail
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(nullable NSError *)error{
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
     if (self.didFailLoadWithError) {
         self.didFailLoadWithError(webView, error);
     }

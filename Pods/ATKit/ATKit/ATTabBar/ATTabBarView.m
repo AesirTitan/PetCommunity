@@ -378,7 +378,7 @@ static inline CGFloat heightOf(UIView *view){
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     
     // select index
-    self.selectIndex((NSUInteger)scrollView.contentOffset.x/self.frame.size.width);
+    self.selectIndex((NSUInteger)scrollView.contentOffset.x/self.contentScrollView.frame.size.width);
     
 }
 

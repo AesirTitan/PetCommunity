@@ -75,7 +75,7 @@
         [UIView animateWithDuration:2.4 delay:0.1 usingSpringWithDamping:1 initialSpringVelocity:0.1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             launch.transform = CGAffineTransformScale(CGAffineTransformMakeTranslation(0, 80), 2, 2);
             launch.alpha = 0;
-            mask.transform = CGAffineTransformScale(CGAffineTransformMakeTranslation(0, -240), 9, 9);
+            mask.transform = CGAffineTransformScale(CGAffineTransformMakeTranslation(0, -240), 12, 12);
         } completion:^(BOOL finished) {
             [launch removeFromSuperview];
             [self.view.maskView removeFromSuperview];

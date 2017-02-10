@@ -12,7 +12,7 @@
 #import <ATKit/ATKit.h>
 #import <ATKit/ATProgressHUD.h>
 #import <BlocksKit/BlocksKit.h>
-#import <ReactiveCocoa/ReactiveCocoa.h>
+#import <ReactiveObjC/ReactiveObjC.h>
 #import <ATKit/ATProgressHUD.h>
 
 #import "LoginUser.h"
